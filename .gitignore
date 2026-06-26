@@ -46,3 +46,6 @@ __pycache__/
 ########################################
 
 .DS_Store
+# Terraform generated files
+infra/tfplan
+infra/terraform-apply.log
