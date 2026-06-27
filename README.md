@@ -1,5 +1,7 @@
 # AWS CI/CD Pipeline with GitHub Actions, Docker & Amazon ECS Fargate
 
+<p align="center">
+
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws)
 ![Terraform](https://img.shields.io/badge/Terraform-IaC-623CE4?logo=terraform)
 ![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?logo=docker)
@@ -7,114 +9,108 @@
 ![Python](https://img.shields.io/badge/Python-Flask-3776AB?logo=python)
 ![Amazon ECS](https://img.shields.io/badge/Amazon-ECS_Fargate-FF9900?logo=amazonaws)
 
----
-
-## Table of Contents
-
-* [Project Overview](#project-overview)
-* [Project Highlights](#project-highlights)
-* [AWS Architecture](#aws-architecture)
-* [Solution Architecture](#solution-architecture)
-* [Technologies Used](#technologies-used)
-* [Repository Structure](#repository-structure)
-* [CI/CD Pipeline Workflow](#cicd-pipeline-workflow)
-* [Infrastructure Overview](#infrastructure-overview)
-* [Security](#security)
-* [Monitoring and Auto Scaling](#monitoring-and-auto-scaling)
-* [Project Screenshots](#project-screenshots)
-* [Skills Demonstrated](#skills-demonstrated)
-* [Lessons Learned](#lessons-learned)
-* [Challenges Encountered](#challenges-encountered)
-* [Future Improvements](#future-improvements)
-* [Project Outcome](#project-outcome)
-* [Conclusion](#conclusion)
-* [Author](#author)
+</p>
 
 ---
 
-## Project Overview
+# Project Overview
 
-This project demonstrates the implementation of a complete Continuous Integration and Continuous Deployment pipeline using GitHub Actions, Docker, Terraform, Amazon ECR, and Amazon ECS Fargate.
+This project demonstrates the implementation of a production-style **Continuous Integration and Continuous Deployment (CI/CD)** pipeline on **Amazon Web Services (AWS)** using modern DevOps practices.
 
-The goal of this project was to build a production-style deployment workflow where every code change pushed to the `main` branch automatically triggers a deployment pipeline. The pipeline builds a Docker image for a Python Flask application, pushes the image to Amazon Elastic Container Registry, updates the Amazon ECS task definition, and deploys the latest version to Amazon ECS Fargate.
+The solution automates the complete software delivery lifecycle by integrating **GitHub Actions**, **Docker**, **Terraform**, **Amazon Elastic Container Registry (ECR)**, and **Amazon Elastic Container Service (ECS) Fargate**. Every code change pushed to the **main** branch automatically triggers a deployment workflow that builds a Docker image, publishes it to Amazon ECR, updates the ECS Task Definition, and deploys the latest application version to Amazon ECS without manual intervention.
 
-The infrastructure was provisioned entirely using Terraform. This includes the VPC, public and private subnets, Internet Gateway, NAT Gateway, route tables, security groups, Amazon ECR repository, ECS cluster, ECS task definition, ECS service, Application Load Balancer, CloudWatch monitoring, SNS notifications, and ECS Auto Scaling.
+Infrastructure is provisioned entirely with **Terraform**, creating a secure AWS environment that includes a Virtual Private Cloud (VPC), public and private subnets, an Internet Gateway, NAT Gateway, Application Load Balancer, Security Groups, CloudWatch monitoring, Amazon SNS notifications, and ECS Service Auto Scaling.
 
-This project demonstrates hands-on experience with cloud infrastructure, DevOps automation, containerization, Infrastructure as Code, CI/CD pipelines, cloud networking, monitoring, and scalable AWS application deployment.
-
----
-
-## Project Highlights
-
-* Fully automated CI/CD pipeline using GitHub Actions
-* Dockerized Python Flask application
-* Infrastructure provisioned with Terraform
-* Amazon ECS Fargate serverless container deployment
-* Amazon ECR container image repository
-* Application Load Balancer for public access
-* ECS tasks deployed in private subnets
-* NAT Gateway for outbound internet access
-* CloudWatch Logs and Container Insights
-* CloudWatch CPU and Memory alarms
-* Amazon SNS email notifications
-* ECS Service Auto Scaling
-* Deployment Circuit Breaker
-* GitHub Secrets for secure AWS authentication
-* Zero manual deployments after code changes
+This project demonstrates practical experience with Infrastructure as Code (IaC), containerization, cloud networking, monitoring, automation, and scalable application deployment using AWS services.
 
 ---
 
-## AWS Architecture
+# Features
 
+* ✅ Infrastructure provisioned using Terraform
+* ✅ Dockerized Python Flask application
+* ✅ GitHub Actions CI/CD pipeline
+* ✅ Amazon ECS Fargate deployment
+* ✅ Amazon Elastic Container Registry (ECR)
+* ✅ Application Load Balancer
+* ✅ Public and Private subnet architecture
+* ✅ NAT Gateway
+* ✅ CloudWatch Logs
+* ✅ CloudWatch Container Insights
+* ✅ CloudWatch Alarms
+* ✅ Amazon SNS email notifications
+* ✅ ECS Service Auto Scaling
+* ✅ Deployment Circuit Breaker
+* ✅ GitHub Secrets
+* ✅ Zero manual deployments
+
+---
+
+# AWS Architecture
+
+> Replace this image with your architecture diagram.
+
+```markdown
 ![AWS Architecture](screenshots/architecture.png)
+```
 
 ---
 
-## Solution Architecture
+# Solution Architecture
 
-The application runs as a Docker container on Amazon ECS Fargate. The ECS tasks are deployed inside private subnets for security, while an internet-facing Application Load Balancer is deployed in public subnets to route traffic to the application.
+The infrastructure follows AWS best practices by separating public-facing resources from private application resources.
 
-GitHub Actions is responsible for the CI/CD automation. Whenever code is pushed to the `main` branch, GitHub Actions builds a new Docker image, pushes it to Amazon ECR, updates the ECS task definition, and deploys the new application version to ECS.
+The Application Load Balancer is deployed inside public subnets and receives incoming HTTP traffic from users. The load balancer forwards requests to Amazon ECS Fargate tasks running inside private subnets, preventing direct public access to the application containers.
 
-CloudWatch provides logging, metrics, alarms, and Container Insights. Amazon SNS sends email alerts when CloudWatch alarms are triggered. ECS Auto Scaling adjusts the number of running tasks based on CPU and memory utilization.
+Whenever code is pushed to GitHub, GitHub Actions automatically:
+
+1. Builds a Docker image.
+2. Authenticates with Amazon ECR.
+3. Pushes the image to the ECR repository.
+4. Retrieves the current ECS Task Definition.
+5. Updates the container image.
+6. Deploys a new ECS task revision.
+7. Waits for the ECS service to become healthy.
+
+CloudWatch continuously collects logs and metrics while Amazon SNS sends notifications whenever configured alarms are triggered. ECS Service Auto Scaling automatically adjusts the number of running tasks based on CPU and memory utilization.
 
 ---
 
-## Technologies Used
+# Technologies Used
 
-### AWS Services
+## AWS Services
 
-* Amazon ECS Fargate
-* Amazon Elastic Container Registry
+* Amazon ECS (Fargate)
+* Amazon Elastic Container Registry (ECR)
 * Amazon VPC
-* Application Load Balancer
-* Internet Gateway
-* NAT Gateway
 * Public Subnets
 * Private Subnets
+* Internet Gateway
+* NAT Gateway
 * Route Tables
 * Security Groups
+* Application Load Balancer
 * Amazon CloudWatch
 * CloudWatch Container Insights
 * CloudWatch Alarms
 * Amazon SNS
 * IAM Roles and Policies
 
-### DevOps Tools
+## DevOps
 
 * GitHub
 * GitHub Actions
 * Docker
 * Terraform
 
-### Programming
+## Programming
 
 * Python
 * Flask
 
 ---
 
-## Repository Structure
+# Repository Structure
 
 ```text
 aws-ecs-cicd-pipeline/
@@ -163,319 +159,204 @@ aws-ecs-cicd-pipeline/
 
 ---
 
-## CI/CD Pipeline Workflow
+# CI/CD Pipeline Workflow
 
-Every push to the `main` branch automatically triggers the GitHub Actions workflow.
-
-The pipeline performs the following steps:
-
-1. Checks out the GitHub repository.
-2. Configures AWS credentials using GitHub Secrets.
-3. Logs in to Amazon ECR.
-4. Builds a Docker image from the Flask application.
-5. Tags the Docker image using the Git commit SHA.
-6. Pushes the Docker image to Amazon ECR.
-7. Downloads the current ECS task definition.
-8. Updates the task definition with the new Docker image.
-9. Deploys the new task definition to Amazon ECS.
-10. Waits for the ECS service to stabilize.
-11. The Application Load Balancer routes traffic to the updated application.
+Every push to the **main** branch automatically starts the deployment pipeline.
 
 ```text
 Developer
-   |
-   | git push origin main
-   v
+      │
+git push origin main
+      │
+      ▼
 GitHub Repository
-   |
-   v
+      │
+      ▼
 GitHub Actions
-   |
-   v
+      │
+      ▼
 Build Docker Image
-   |
-   v
+      │
+      ▼
 Push Image to Amazon ECR
-   |
-   v
+      │
+      ▼
 Update ECS Task Definition
-   |
-   v
-Deploy to Amazon ECS Fargate
-   |
-   v
+      │
+      ▼
+Deploy Amazon ECS Fargate
+      │
+      ▼
 Application Load Balancer
-   |
-   v
+      │
+      ▼
 Python Flask Application
 ```
 
----
+The workflow automatically:
 
-## Infrastructure Overview
+* Checks out the repository
+* Configures AWS credentials
+* Builds the Docker image
+* Pushes the image to Amazon ECR
+* Updates the ECS Task Definition
+* Deploys a new ECS revision
+* Waits until the ECS Service becomes healthy
+* Serves the latest application through the Application Load Balancer
+
+# Infrastructure Overview
 
 Terraform provisions the complete AWS infrastructure for this project.
 
-### Networking
+## Networking
 
-* VPC
-* Two public subnets
-* Two private subnets
+* Amazon Virtual Private Cloud (VPC)
+* Two Public Subnets
+* Two Private Subnets
 * Internet Gateway
 * NAT Gateway
-* Route Tables
+* Public & Private Route Tables
 * Security Groups
 
-### Compute
+## Compute
 
-* ECS Cluster
-* ECS Service
-* ECS Task Definition
-* ECS Fargate tasks
+* Amazon ECS Cluster
+* Amazon ECS Service
+* Amazon ECS Task Definition
+* Amazon ECS Fargate
 
-### Container Registry
+## Container Registry
 
-* Amazon ECR repository
+* Amazon Elastic Container Registry (ECR)
 
-### Load Balancing
+## Load Balancing
 
 * Application Load Balancer
 * Target Group
 * Health Checks
 
-### Monitoring
+## Monitoring
 
+* Amazon CloudWatch
 * CloudWatch Logs
 * CloudWatch Container Insights
 * CloudWatch Alarms
-* Amazon SNS notifications
+* Amazon SNS Notifications
 
-### Scaling
+## Auto Scaling
 
 * ECS Service Auto Scaling
-* CPU target tracking policy
-* Memory target tracking policy
+* CPU Target Tracking Policy
+* Memory Target Tracking Policy
 
 ---
 
-## Security
+# Security
 
-Security was built into the architecture by separating public and private resources.
+Security was incorporated into every layer of the solution.
 
-The Application Load Balancer is deployed in public subnets and is the only resource that receives inbound traffic from the internet. ECS tasks are deployed in private subnets and do not have public IP addresses.
+The Application Load Balancer is deployed in public subnets and is the only component exposed to the internet. ECS tasks are deployed inside private subnets and do not receive public IP addresses.
 
-Security Groups restrict traffic so that ECS tasks only receive traffic from the Application Load Balancer.
+Network traffic is restricted through Security Groups following the principle of least privilege.
 
-GitHub Secrets are used to store AWS credentials securely for the CI/CD workflow.
+GitHub Actions authenticates to AWS using encrypted GitHub Secrets instead of hardcoded credentials.
 
-Implemented security features include:
+Security features implemented include:
 
 * Private subnets for ECS tasks
-* Public subnets for the Application Load Balancer
-* Security Groups with least-privilege access
-* IAM roles for ECS task execution
-* GitHub Secrets for AWS authentication
-* Deployment Circuit Breaker for safer ECS deployments
-* NAT Gateway for controlled outbound internet access
+* Public subnets only for the Application Load Balancer
+* NAT Gateway for secure outbound internet access
+* Security Groups with least-privilege rules
+* IAM Roles for ECS Task Execution
+* IAM Task Role for ECS containers
+* GitHub Secrets
+* Deployment Circuit Breaker
+* CloudWatch monitoring
+* Amazon SNS notifications
 
 ---
 
-## Monitoring and Auto Scaling
+# Monitoring & Auto Scaling
 
-CloudWatch was configured to provide visibility into the ECS service and running containers.
+CloudWatch continuously monitors the ECS cluster and running containers.
 
-Monitoring features include:
+Monitoring includes:
 
 * CloudWatch Logs
 * CloudWatch Container Insights
-* CPU utilization metrics
-* Memory utilization metrics
-* CloudWatch alarms
-* Amazon SNS email notifications
-
-ECS Auto Scaling was configured to adjust the number of running tasks based on CPU and memory utilization.
-
-Scaling configuration includes:
-
-* Minimum task count: 1
-* Maximum task count: 3
-* CPU target tracking
-* Memory target tracking
-* Scale-in cooldown
-* Scale-out cooldown
-
-This allows the application to respond automatically to workload changes while maintaining cost control.
-
----
-
-## Project Screenshots
-
-### AWS Architecture
-
-![AWS Architecture](screenshots/architecture.png)
-
----
-
-### GitHub Actions Workflow
-
-![GitHub Actions Workflow](screenshots/github-actions.png)
-
----
-
-### Amazon ECR Repository
-
-![Amazon ECR Repository](screenshots/ecr.png)
-
----
-
-### Amazon ECS Cluster
-
-![Amazon ECS Cluster](screenshots/ecs-cluster.png)
-
----
-
-### Amazon ECS Service
-
-![Amazon ECS Service](screenshots/ecs-service.png)
-
----
-
-### Amazon ECS Task
-
-![Amazon ECS Task](screenshots/ecs-task.png)
-
----
-
-### Application Load Balancer
-
-![Application Load Balancer](screenshots/alb.png)
-
----
-
-### CloudWatch Dashboard
-
-![CloudWatch Dashboard](screenshots/cloudwatch-dashboard.png)
-
----
-
-### CloudWatch Alarm
-
-![CloudWatch Alarm](screenshots/cloudwatch-alarm.png)
-
----
-
-### Amazon SNS Notification
-
-![Amazon SNS Notification](screenshots/sns.png)
-
----
-
-### ECS Auto Scaling
-
-![ECS Auto Scaling](screenshots/autoscaling.png)
-
----
-
-### Running Application
-
-![Running Application](screenshots/application.png)
-
----
-
-## Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-* AWS Cloud Architecture
-* Infrastructure as Code
-* Terraform
-* Docker Containerization
-* Amazon ECS Fargate
-* Amazon ECR
-* GitHub Actions
-* CI/CD Automation
-* Application Load Balancing
-* VPC Networking
-* Public and Private Subnets
-* NAT Gateway
-* IAM Roles and Policies
-* CloudWatch Monitoring
+* CPU Utilization Metrics
+* Memory Utilization Metrics
 * CloudWatch Alarms
-* SNS Notifications
-* ECS Auto Scaling
-* Deployment Automation
-* DevOps Best Practices
+* Amazon SNS Email Notifications
+
+The ECS Service automatically scales according to workload demand using Target Tracking policies.
+
+Scaling configuration:
+
+* Minimum Tasks: **1**
+* Maximum Tasks: **3**
+* CPU Target Tracking
+* Memory Target Tracking
+* Scale-In Cooldown
+* Scale-Out Cooldown
+
+This enables the application to maintain performance during increased traffic while optimizing AWS resource usage.
 
 ---
 
-## Lessons Learned
+# Project Screenshots
 
-This project provided hands-on experience building a complete cloud-native CI/CD pipeline using AWS and modern DevOps tools.
+## Infrastructure
 
-The project reinforced the importance of Infrastructure as Code for creating repeatable and consistent cloud environments. Terraform made it possible to define and manage the entire AWS infrastructure in code.
-
-Docker containerization made the application portable and consistent across local development and AWS deployment environments.
-
-GitHub Actions automated the deployment process and removed the need for manual Docker builds, image pushes, and ECS deployments.
-
-Amazon ECS Fargate simplified container orchestration by removing the need to manage EC2 instances.
-
-CloudWatch monitoring, SNS notifications, and ECS Auto Scaling demonstrated the importance of observability, alerting, and scalability in production-style cloud environments.
+| AWS Architecture                  | Terraform Deployment                 |
+| --------------------------------- | ------------------------------------ |
+| ![](screenshots/architecture.png) | ![](screenshots/terraform-apply.png) |
 
 ---
 
-## Challenges Encountered
+## CI/CD Pipeline
 
-Several challenges were encountered and resolved during this project.
-
-### IAM Roles
-
-ECS required both an ECS Task Execution Role and an ECS Task Role. The execution role allows ECS to pull images from Amazon ECR and send logs to CloudWatch. The task role provides permissions to the running container and was required for ECS Exec.
-
-### Amazon ECR Authentication
-
-Docker authentication with Amazon ECR required troubleshooting AWS CLI authentication and Docker login behavior. The issue was resolved by verifying the ECR repository, confirming AWS credentials, refreshing the ECR login token, and successfully authenticating Docker to Amazon ECR.
-
-### ECS Networking
-
-Deploying ECS tasks in private subnets required configuring a NAT Gateway and correct route tables so the tasks could pull images from ECR and send logs to CloudWatch while remaining inaccessible directly from the internet.
-
-### GitHub Actions Deployment
-
-The GitHub Actions workflow required securely storing AWS credentials in GitHub Secrets, building the Docker image, pushing it to ECR, updating the ECS task definition, and waiting for the ECS service deployment to stabilize.
-
-These challenges improved my understanding of AWS networking, IAM, ECS, Docker, GitHub Actions, and cloud troubleshooting.
+| GitHub Actions                      | Amazon ECR               |
+| ----------------------------------- | ------------------------ |
+| ![](screenshots/github-actions.png) | ![](screenshots/ecr.png) |
 
 ---
 
-## Future Improvements
+## Amazon ECS
 
-Future improvements for this project include:
+| ECS Cluster                      | ECS Service                      |
+| -------------------------------- | -------------------------------- |
+| ![](screenshots/ecs-cluster.png) | ![](screenshots/ecs-service.png) |
 
-* Add automated unit tests before deployment.
-* Implement Blue/Green deployments.
-* Add Canary deployment strategy.
-* Configure HTTPS using AWS Certificate Manager.
-* Add Route 53 custom domain name.
-* Store application secrets in AWS Secrets Manager.
-* Add AWS WAF for application protection.
-* Configure AWS X-Ray for distributed tracing.
-* Use Terraform remote state with Amazon S3 and DynamoDB locking.
-* Add cost monitoring dashboards.
-* Add vulnerability scanning before deployment.
-* Add Slack or Microsoft Teams notifications for deployment status.
+| ECS Task                      | ECS Auto Scaling                 |
+| ----------------------------- | -------------------------------- |
+| ![](screenshots/ecs-task.png) | ![](screenshots/autoscaling.png) |
 
 ---
 
-## Project Outcome
+## Monitoring
 
-The completed solution delivers a fully automated deployment pipeline.
+| CloudWatch Dashboard                      | CloudWatch Alarms                     |
+| ----------------------------------------- | ------------------------------------- |
+| ![](screenshots/cloudwatch-dashboard.png) | ![](screenshots/cloudwatch-alarm.png) |
 
-Every push to the `main` branch automatically triggers GitHub Actions to build a new Docker image, push it to Amazon ECR, update the ECS task definition, and deploy the latest application version to Amazon ECS Fargate.
+| Amazon SNS               |
+| ------------------------ |
+| ![](screenshots/sns.png) |
 
-The final result is a scalable, secure, monitored, and automated AWS deployment platform that follows modern DevOps and cloud engineering best practices.
+---
 
-The application was successfully updated from:
+## Load Balancer & Application
+
+| Application Load Balancer | Running Application              |
+| ------------------------- | -------------------------------- |
+| ![](screenshots/alb.png)  | ![](screenshots/application.png) |
+
+---
+
+# Deployment Verification
+
+The CI/CD pipeline was successfully validated by modifying the Flask application message from:
 
 ```text
 Hello from CI/CD Pipeline!
@@ -487,23 +368,190 @@ to:
 Hello from CI/CD Pipeline Version 2!
 ```
 
-using only a Git push, proving that the CI/CD pipeline works end to end.
+After pushing the updated code to the **main** branch, GitHub Actions automatically:
+
+* Built a new Docker image
+* Pushed the image to Amazon ECR
+* Updated the ECS Task Definition
+* Deployed a new ECS task revision
+* Waited for the ECS Service to stabilize
+
+Refreshing the Application Load Balancer URL confirmed that the updated application was running successfully without any manual deployment steps.
+
+This verified that the end-to-end CI/CD pipeline was functioning as designed.
+
+# Skills Demonstrated
+
+This project demonstrates hands-on experience with a wide range of AWS Cloud Engineering and DevOps technologies.
+
+## Cloud Engineering
+
+* Amazon ECS Fargate
+* Amazon Elastic Container Registry (ECR)
+* Amazon VPC
+* Public and Private Subnets
+* Internet Gateway
+* NAT Gateway
+* Route Tables
+* Security Groups
+* Application Load Balancer
+* Cloud Networking
+* High Availability Design
+
+## Infrastructure as Code
+
+* Terraform
+* Modular Infrastructure Design
+* Resource Dependencies
+* Variables and Outputs
+* Infrastructure Automation
+
+## DevOps
+
+* GitHub
+* GitHub Actions
+* Continuous Integration (CI)
+* Continuous Deployment (CD)
+* Docker
+* Container Image Management
+* Deployment Automation
+
+## Monitoring
+
+* Amazon CloudWatch
+* CloudWatch Logs
+* CloudWatch Container Insights
+* CloudWatch Alarms
+* Amazon SNS Notifications
+
+## Security
+
+* IAM Roles
+* IAM Policies
+* GitHub Secrets
+* Principle of Least Privilege
+* Secure Private Networking
+
+## Programming
+
+* Python
+* Flask
 
 ---
 
-## Conclusion
+# Lessons Learned
 
-This project demonstrates the successful implementation of a production-style CI/CD pipeline using GitHub Actions, Docker, Terraform, Amazon ECR, and Amazon ECS Fargate.
+This project provided valuable hands-on experience designing, automating, and deploying a modern cloud-native application using AWS services and DevOps practices.
 
-By combining Infrastructure as Code, containerization, automated deployments, cloud monitoring, Auto Scaling, and secure networking, this project provides a complete example of modern cloud-native application delivery on AWS.
+One of the biggest lessons was understanding how Infrastructure as Code simplifies cloud deployments. By provisioning the complete environment with Terraform, every AWS resource could be recreated consistently and reliably without manual configuration.
 
-The project showcases practical AWS Cloud Engineering and DevOps skills, including infrastructure automation, container orchestration, CI/CD pipeline design, monitoring, security, and scalability.
+Implementing Docker demonstrated the value of containerization by ensuring the application behaved consistently across development and production environments.
+
+Building the CI/CD pipeline with GitHub Actions reinforced how deployment automation improves software delivery. Every code change automatically triggered a workflow that built a Docker image, pushed it to Amazon ECR, updated the ECS task definition, and deployed the latest application version without manual intervention.
+
+Configuring CloudWatch monitoring, Amazon SNS notifications, ECS Auto Scaling, and deployment circuit breakers highlighted the importance of observability, resiliency, and operational excellence when designing production-ready cloud applications.
+
+Overall, this project strengthened my understanding of cloud architecture, Infrastructure as Code, DevOps automation, AWS networking, container orchestration, and scalable application deployment.
 
 ---
 
-## Author
+# Challenges Encountered
 
-**David Ikundji**
-AWS Cloud & DevOps Engineer
+During the implementation of this project, several technical challenges were encountered and successfully resolved.
 
-GitHub: https://github.com/davidikundji
+### Configuring IAM Roles
+
+Understanding the difference between the ECS Task Execution Role and the ECS Task Role required careful troubleshooting. Correctly assigning permissions was essential for pulling Docker images from Amazon ECR, writing logs to CloudWatch, and enabling ECS Exec functionality.
+
+### Amazon ECR Authentication
+
+Authenticating Docker with Amazon ECR initially resulted in login failures. The issue was resolved by verifying the AWS CLI configuration, confirming the ECR repository URI, refreshing the authorization token, and successfully authenticating Docker before pushing container images.
+
+### ECS Networking
+
+Deploying Amazon ECS Fargate tasks in private subnets required correctly configuring the NAT Gateway, route tables, security groups, and the Application Load Balancer. This improved my understanding of secure cloud networking and how AWS services communicate within a VPC.
+
+### GitHub Actions Automation
+
+Designing the deployment workflow required integrating GitHub Secrets, building Docker images, pushing them to Amazon ECR, updating the ECS task definition, and waiting for the ECS service to stabilize. Successfully automating these steps provided practical experience implementing production-style CI/CD pipelines.
+
+Each challenge strengthened my troubleshooting skills while improving my understanding of AWS architecture and DevOps automation.
+
+---
+
+# Future Improvements
+
+Although the solution is fully functional, several enhancements could further improve its security, scalability, and operational maturity.
+
+Potential future improvements include:
+
+* Implement Blue/Green deployments.
+* Add Canary deployment strategies.
+* Store application secrets in AWS Secrets Manager.
+* Configure HTTPS using AWS Certificate Manager (ACM).
+* Register a custom domain with Amazon Route 53.
+* Protect the application using AWS WAF.
+* Add distributed tracing with AWS X-Ray.
+* Store Terraform remote state in Amazon S3 with DynamoDB state locking.
+* Integrate automated unit and integration testing before deployment.
+* Add Docker image vulnerability scanning.
+* Build CloudWatch dashboards for operational reporting.
+* Implement cost monitoring using AWS Cost Explorer.
+
+---
+
+# Project Outcome
+
+The completed solution delivers a fully automated cloud-native deployment platform built using AWS services and modern DevOps practices.
+
+Every push to the **main** branch automatically triggers GitHub Actions to:
+
+* Build a new Docker image.
+* Push the image to Amazon Elastic Container Registry.
+* Update the ECS Task Definition.
+* Deploy the latest application version to Amazon ECS Fargate.
+* Wait for the deployment to complete successfully.
+* Serve the updated application through the Application Load Balancer.
+
+The deployment pipeline was successfully validated by modifying the Flask application and confirming that the updated version was automatically deployed without any manual AWS operations.
+
+The final solution provides:
+
+* Fully automated CI/CD
+* Infrastructure as Code
+* Secure networking
+* High availability
+* Container orchestration
+* Monitoring and alerting
+* Automatic scaling
+* Production-style deployment automation
+
+---
+
+# Conclusion
+
+This project demonstrates the successful implementation of a production-ready Continuous Integration and Continuous Deployment pipeline using GitHub Actions, Docker, Terraform, Amazon Elastic Container Registry (ECR), and Amazon ECS Fargate.
+
+By combining Infrastructure as Code, containerization, automated deployments, secure networking, cloud monitoring, and Auto Scaling, the solution delivers a scalable, resilient, and repeatable deployment platform that follows modern AWS and DevOps best practices.
+
+Throughout this project, I gained practical experience provisioning AWS infrastructure, designing secure cloud architectures, automating application deployments, implementing monitoring and alerting, and troubleshooting real-world cloud engineering challenges.
+
+This project represents a comprehensive demonstration of AWS Cloud Engineering and DevOps skills and serves as a strong portfolio project showcasing hands-on experience with modern cloud-native application deployment.
+
+---
+
+# Author
+
+## David Ikundji
+
+**AWS Cloud Engineer | M.Sc. Computer Science (AI & Machine Learning) | DevOps En
+
+### Connect with Me
+
+* **GitHub:** https://github.com/davidikundji
+* **LinkedIn:** https://www.linkedin.com/in/davidikundji/
+
+---
+
+
+
