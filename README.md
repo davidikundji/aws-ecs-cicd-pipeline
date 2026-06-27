@@ -540,7 +540,7 @@ This project represents a comprehensive demonstration of AWS Cloud Engineering a
 
 ## David Ikundji
 
-**AWS Cloud Engineer | M.Sc. Computer Science (AI & Machine Learning) | DevOps En
+**AWS Cloud Engineer | M.Sc. Computer Science (AI & Machine Learning) | DevOps Engineer
 
 ### Connect with Me
 
