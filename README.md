@@ -48,9 +48,7 @@ This project demonstrates practical experience with Infrastructure as Code (IaC)
 
 # AWS Architecture
 
-```markdown
 ![AWS Architecture](screenshots/architecture.png)
-```
 
 ---
 
