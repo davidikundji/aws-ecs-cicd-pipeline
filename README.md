@@ -545,7 +545,7 @@ This project represents a comprehensive demonstration of AWS Cloud Engineering a
 ### Connect with Me
 
 * **GitHub:** https://github.com/davidikundji
-* **LinkedIn:** https://www.linkedin.com/in/davidikundji/
+* **LinkedIn:** https://www.linkedin.com/in/david-ikundji-5b6473213/
 
 ---
 
