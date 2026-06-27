@@ -48,8 +48,6 @@ This project demonstrates practical experience with Infrastructure as Code (IaC)
 
 # AWS Architecture
 
-> Replace this image with your architecture diagram.
-
 ```markdown
 ![AWS Architecture](screenshots/architecture.png)
 ```
