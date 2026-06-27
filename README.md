@@ -1,8 +1,6 @@
 # AWS ECS CI/CD Pipeline using GitHub Actions, Docker, Terraform & Amazon ECS Fargate
 
-```{=html}
-<p align="center">
-```
+
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazonaws)
 ![Terraform](https://img.shields.io/badge/Terraform-IaC-623CE4?logo=terraform)
 ![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?logo=docker)
@@ -12,9 +10,7 @@ Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-2088FF?logo=githubact
 ![Amazon
 ECS](https://img.shields.io/badge/Amazon-ECS_Fargate-FF9900?logo=amazonaws)
 
-```{=html}
-</p>
-```
+
 
 ------------------------------------------------------------------------
 
